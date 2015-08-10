@@ -2,6 +2,7 @@
 #include "osapi.h"
 #include "gpio.h"
 #include "os_type.h"
+#include "user_config.h"
 
 #define user_procTaskPrio        0
 #define user_procTaskQueueLen    1
@@ -14,15 +15,15 @@ static volatile os_timer_t some_timer;
 void some_timerfunc(void *arg)
 {
     //Do blinky stuff
-    if (GPIO_REG_READ(GPIO_OUT_ADDRESS) & BIT1)
+    if (GPIO_REG_READ(GPIO_OUT_ADDRESS) & BIT2)
     {
-        //Set GPIO1 to LOW
-        gpio_output_set(0, BIT1, BIT1, 0);
+        //Set GPIO2 to LOW
+        gpio_output_set(0, BIT2, BIT2, 0);
     }
     else
     {
-        //Set GPIO1 to HIGH
-        gpio_output_set(BIT1, 0, BIT1, 0);
+        //Set GPIO2 to HIGH
+        gpio_output_set(BIT2, 0, BIT2, 0);
     }
 }
 
@@ -40,11 +41,11 @@ user_init()
     // Initialize the GPIO subsystem.
     gpio_init();
 
-    //Set GPIO1 to output mode
-    PIN_FUNC_SELECT(PERIPHS_IO_MUX_U0TXD_U, FUNC_GPIO1);
+    //Set GPIO2 to output mode
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO2_U, FUNC_GPIO2);
 
-    //Set GPIO1 low
-    gpio_output_set(0, BIT1, BIT1, 0);
+    //Set GPIO2 low
+    gpio_output_set(0, BIT2, BIT2, 0);
 
     //Disarm timer
     os_timer_disarm(&some_timer);
