@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -ti --privileged esp-hello-world
+docker run --rm -ti --privileged -e "CMD=make && make flash" esp-hello-world
