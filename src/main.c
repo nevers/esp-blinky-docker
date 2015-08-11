@@ -18,7 +18,7 @@ void handle_timeout(void *arg) {
 
 void ICACHE_FLASH_ATTR user_init()
 {
-    // Initialize the GPIO subsystem.
+    //Initialize the GPIO subsystem
     gpio_init();
 
     //Set GPIO2 to output mode
