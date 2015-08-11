@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run --rm -ti -e "CMD=make" esp-hello-world

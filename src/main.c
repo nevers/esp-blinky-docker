@@ -1,42 +1,22 @@
-#include "ets_sys.h"
-#include "osapi.h"
-#include "gpio.h"
 #include "os_type.h"
-#include "user_config.h"
+#include "eagle_soc.h"
+#include "c_types.h"
+#include "gpio.h"
+#include "osapi.h"
 
-#define user_procTaskPrio        0
-#define user_procTaskQueueLen    1
-os_event_t    user_procTaskQueue[user_procTaskQueueLen];
-static void user_procTask(os_event_t *events);
+#define DELAY_MS 1000
+#define REPEATING 1
 
-static volatile os_timer_t some_timer;
+static volatile os_timer_t timer_id;
 
-
-void some_timerfunc(void *arg)
-{
-    //Do blinky stuff
+void handle_timeout(void *arg) {
     if (GPIO_REG_READ(GPIO_OUT_ADDRESS) & BIT2)
-    {
-        //Set GPIO2 to LOW
-        gpio_output_set(0, BIT2, BIT2, 0);
-    }
-    else
-    {
-        //Set GPIO2 to HIGH
-        gpio_output_set(BIT2, 0, BIT2, 0);
-    }
+        gpio_output_set(0, BIT2, BIT2, 0); //Set GPIO2 to LOW
+    else 
+        gpio_output_set(BIT2, 0, BIT2, 0); //Set GPIO2 to HIGH
 }
 
-//Do nothing function
-static void ICACHE_FLASH_ATTR
-user_procTask(os_event_t *events)
-{
-    os_delay_us(10);
-}
-
-//Init function 
-void ICACHE_FLASH_ATTR
-user_init()
+void ICACHE_FLASH_ATTR user_init()
 {
     // Initialize the GPIO subsystem.
     gpio_init();
@@ -48,17 +28,11 @@ user_init()
     gpio_output_set(0, BIT2, BIT2, 0);
 
     //Disarm timer
-    os_timer_disarm(&some_timer);
+    os_timer_disarm(&timer_id);
 
     //Setup timer
-    os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
+    os_timer_setfn(&timer_id, (os_timer_func_t *)handle_timeout, NULL);
 
-    //Arm the timer
-    //&some_timer is the pointer
-    //1000 is the fire time in ms
-    //0 for once and 1 for repeating
-    os_timer_arm(&some_timer, 1000, 1);
-    
-    //Start os task
-    system_os_task(user_procTask, user_procTaskPrio,user_procTaskQueue, user_procTaskQueueLen);
+    //Arm the timer register &timer_id. is the pointer
+    os_timer_arm(&timer_id, DELAY_MS, REPEATING);
 }
