@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -ti --privileged -e "CMD=make && make flash" esp-hello-world
+docker run --rm -ti --privileged -e "CMD=make && make flash && miniterm.py -p /dev/ttyUSB0 -b 115200 --dtr=0" esp-blinky

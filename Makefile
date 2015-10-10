@@ -12,7 +12,7 @@ ESPPORT ?= /dev/ttyUSB0
 
 # Subdirs of the project to include in compiling
 MODULES = src
-EXTRA_INCDIR  = include
+EXTRA_INCDIR = include
 
 # Libs used in this project, mainly provided by the SDK
 LIBS = c gcc hal pp phy net80211 lwip wpa main
