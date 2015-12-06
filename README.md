@@ -9,4 +9,4 @@ It inverts the GPIO2 every second. The ESP-12 board has a led connected to this 
 * Run docker-flash to make the binaries and flash them to your ESP8266 SoC. 
 
 ## Hardware setup
-For the ESP-12 board, refer to https://github.com/nevers/esp-open-sdk-docker
+For the ESP-12 board, refer to [esp-open-sdk-docker](https://github.com/nevers/esp-open-sdk-docker)
