@@ -7,6 +7,7 @@ It inverts the GPIO2 every second. The ESP-12 board has a led connected to this 
 * Refer to [esp-open-sdk-docker](https://github.com/nevers/esp-open-sdk-docker) and build the docker container as detailed in the instructions. 
 * Run docker-build to build the development environment image.
 * Run docker-flash to make the binaries and flash them to your ESP8266 SoC. 
+* After flashing, you should see the led flashing.
 
 ## Hardware setup
 For the ESP-12 board, refer to [esp-open-sdk-docker](https://github.com/nevers/esp-open-sdk-docker)
